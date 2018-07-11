@@ -32,7 +32,19 @@ class Router
                 $controllerName = ucfirst($controllerName);
 
                 $actionName = 'action' . ucfirst(array_shift($segments));
-                echo $controllerName ."->". $actionName;
+                
+                $controllerFile = ROOT . '/controllers/' . $controllerName . '.php';
+
+                if (file_exists($controllerFile)) {
+                    include_once ($controllerFile);
+                }
+
+                //Create a object
+                $controllerObject = new $controllerName;
+                $result = $controllerObject->$actionName();
+                if ($result != null) {
+                    break;
+                }
             }
         }
     }
