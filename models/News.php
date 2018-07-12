@@ -1,18 +1,10 @@
 <?php
 
+//include ROOT . '/components/Db.php';
+//use Components\Db;
+
 class News
 {
-    public function db_connect()
-    {
-        $host = 'localhost';
-        $dbname = 'inshop_db';
-        $user =  'root';
-        $password = '';
-        $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-
-        return $db;
-    }
-
     public static function getNewsItemById($id)
     {
         $id = intval($id);
@@ -34,6 +26,11 @@ class News
     
     public static function getNewsList()
     {
+        /*
+        *Connection
+        */
+        $db = Db::getConnection();
+
         $newsList = array();
 
         $result = $db->query(
@@ -45,10 +42,12 @@ class News
 
         $i = 0;
         while ($row = $result->fetch()) {
-            $newsList[$i]['id'] = $row['id'];
-            $newsList[$i]['title'] = $row['title'];
-            $newsList[$i]['date'] = $row['date'];
+            $newsList[$i]['id']            = $row['id'];
+            $newsList[$i]['title']         = $row['title'];
+            $newsList[$i]['date']          = $row['date'];
             $newsList[$i]['short_content'] = $row['short_content'];
+            $newsList[$i]['content']       = $row['content'];
+            $newsList[$i]['author_name']   = $row['author_name'];
             $i++;
         }
 
