@@ -34,7 +34,7 @@ class News
         $newsList = array();
 
         $result = $db->query(
-            'SELECT id, title, date, short_content ' .
+            'SELECT id, title, date, short_content, content, author_name ' .
             'FROM news ' .
             'ORDER BY date DESC ' .
             'LIMIT 10'        
