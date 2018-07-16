@@ -24,7 +24,7 @@
         <link rel="apple-touch-icon-precomposed" href="/template/default/images/ico/apple-touch-icon-57-precomposed.png">
     </head><!--/head-->
 
-    <body>
+    <body style="margin: 0 auto;">
         <header id="header"><!--header-->
             <div class="header_top"><!--header_top-->
                 <div class="container">
@@ -32,8 +32,8 @@
                         <div class="col-sm-6">
                             <div class="contactinfo">
                                 <ul class="nav nav-pills">
-                                    <li><a href="#"><i class="fa fa-phone"></i> +38 093 000 11 22</a></li>
-                                    <li><a href="#"><i class="fa fa-envelope"></i> zinchenko.us@gmail.com</a></li>
+                                    <li><a href="#"><i class="fa fa-phone"></i> +998 97 360 40 59</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope"></i> darking-uz@yandex.ru</a></li>
                                 </ul>
                             </div>
                         </div>

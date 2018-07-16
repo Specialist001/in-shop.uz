@@ -12,8 +12,7 @@
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a href="/category/<?= $categoryItem['id'];?>"
-                                           class="<?php if ($categoryId == $categoryItem['id']) echo 'active'; ?>"
-                                           >                                                                                    
+                                           class="<?php if ($categoryId == $categoryItem['id']) echo 'active'; ?>" >                                                                                    
                                             <?= $categoryItem['name'];?>
                                         </a>
                                     </h4>
@@ -33,10 +32,11 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="/template/images/home/product1.jpg" alt="" />
+                                        <img src="/template/default/images/home/product1.jpg" alt="" />
                                         <h2><?= $product['price'];?>$</h2>
                                         <p>
                                             <a href="/product/<?= $product['id'];?>">
+                                                ID: <?= $product['id']; ?>,
                                                 <?= $product['name'];?>
                                             </a>
                                         </p>
@@ -49,9 +49,9 @@
                             </div>
                         </div>
                     <?php endforeach;?>                              
-                    
+                                        
                 </div><!--features_items-->
-
+                <div style="margin:0 auto; text-align: center;"><?= $pagination->get(); ?></div>
             </div>
         </div>
     </div>
