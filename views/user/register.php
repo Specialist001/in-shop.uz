@@ -3,17 +3,15 @@
 <section>
     <div class="container">
         <div class="row">
-        	<div class="col-sm-4 offset-4 padding-right">
+        	<div class="col-sm-4 col-sm-offset-4 padding-right">
         		
 				<div class="signup-form">
 					<h2>Registration</h2>
 					<form action="#" method="POST">
-						<input type="text" placeholder="Name">
-						<input type="text" placeholder="E-mail">
-						<input type="text" placeholder="Password">
-						<button type="submit" class="btn btn-default">
-							Sign Up
-						</button>
+						<input type="text" name="name" placeholder="Name">
+						<input type="text" name="email" placeholder="E-mail">
+						<input type="text" name="password"placeholder="Password">
+						<input type="submit" name="submit" class="btn btn-info" value="Sign Up"/>
 					</form>
 				</div>
 
