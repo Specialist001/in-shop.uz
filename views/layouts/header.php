@@ -63,6 +63,7 @@
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
                                     <li><a href="/cabinet"><i class="fa fa-user"></i> Аккаунт</a></li>
                                     <li><a href="/user/login"><i class="fa fa-lock"></i> Вход</a></li>
+                                    <li><a href="/user/logout"><i class="fa fa-unlock"></i> Выход</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -35,6 +35,23 @@ class User
 		return false;
 	}
 
+	public static function auth($userId)
+	{
+		session_start();
+		$_SESSION['user'] = $userId;
+	}
+
+	public static function checkLogged()
+	{
+		session_start();
+
+		if (isset($_SESSION['user'])) {
+			return $_SESSION['user'];
+		}
+
+		header("Location: /user/login");
+	}
+
 	public static function checkName($name)
 	{
 		if (strlen($name) >= 2) {
