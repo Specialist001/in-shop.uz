@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Главная</title>
-        <link href="/template/default/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/template/default/css/bootstrap.min-3.0.3.css" rel="stylesheet">
         <link href="/template/default/css/font-awesome.min.css" rel="stylesheet">
         <link href="/template/default/css/prettyPhoto.css" rel="stylesheet">
         <link href="/template/default/css/price-range.css" rel="stylesheet">
@@ -61,8 +61,8 @@
                             <div class="shop-menu pull-right">
                                 <ul class="nav navbar-nav">                                    
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i> Корзина</a></li>
-                                    <li><a href="#"><i class="fa fa-user"></i> Аккаунт</a></li>
-                                    <li><a href="#"><i class="fa fa-lock"></i> Вход</a></li>
+                                    <li><a href="/cabinet"><i class="fa fa-user"></i> Аккаунт</a></li>
+                                    <li><a href="/user/login"><i class="fa fa-lock"></i> Вход</a></li>
                                 </ul>
                             </div>
                         </div>
