@@ -32,7 +32,7 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="/template/default/images/home/product1.jpg" alt="" />
+                                        <img src="/template/default/images/home/product<?= $product['id']?>.jpg" alt="" />
                                         <h2><?= $product['price'];?>$</h2>
                                         <p>
                                             <a href="/product/<?= $product['id'];?>">
@@ -40,7 +40,7 @@
                                                 <?= $product['name'];?>
                                             </a>
                                         </p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                        <a href="/cart/add/<?= $product['id'];?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                     </div>
                                     <?php if ($product['is_new']): ?>
                                         <img src="/template/images/home/new.png" class="new" alt="" />

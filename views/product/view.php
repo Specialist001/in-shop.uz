@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-sm-5">
                             <div class="view-product">                            
-                                <img src="images/product-details/1.jpg" alt="" />
+                                <img src="/template/default/images/product-details/<?= $product['id']?>.jpg" alt="" />
                             </div>
                         </div>
                         <div class="col-sm-7">
