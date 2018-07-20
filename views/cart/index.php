@@ -32,7 +32,7 @@
                             <tr>
                                 <th>Код товара</th>
                                 <th>Название</th>
-                                <th>Стомость, грн</th>
+                                <th>Стомость, сум</th>
                                 <th>Количество, шт</th>
                             </tr>
                             <?php foreach ($products as $product): ?>
