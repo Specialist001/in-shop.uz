@@ -41,6 +41,14 @@ class CartController
         $categories = array();
         $categories = Category::getCategoriesList();
 
+        $productsInCart = Cart::getProducts();
+        if ($productsInCart) {
+            $productsIds = array_keys($productsInCart);
+            $products = Product::getProductsByIds($productsIds);
+
+            $totalPrice = Cart::getTotalPrice($products);
+        }
+
         $result = false;
 
         if (isset($_POST['submit'])) {
@@ -71,7 +79,8 @@ class CartController
 
                 if ($result) {
                     $adminEmail = "darking-uz@yandex.ru";
-                    $message = 'http://in-shop.uz/admin/orders';
+                    $message = 'http://in-shop.uz/admin/orders <br>' .
+                                $products['id'] . '<br/>' . $totalPrice;
                     $subject = 'Новый заказ';
                     mail($adminEmail, $subject, $message);
 

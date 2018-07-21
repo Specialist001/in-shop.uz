@@ -30,5 +30,17 @@
     });
 </script>
 
+<script>
+    $(document).ready(function () {
+        $(".del-from-cart").click(function () {
+            var id = $(this).attr("data-id");
+            $.post("/cart/delAjax/"+id, {}, function (data) {
+                $("#cart-count").html(data);
+            });
+            return false;
+        });
+    });
+</script>
+
     </body>
 </html>

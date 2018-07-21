@@ -34,6 +34,7 @@
                                 <th>Название</th>
                                 <th>Стомость, сум</th>
                                 <th>Количество, шт</th>
+                                <th>Удалить</th>
                             </tr>
                             <?php foreach ($products as $product): ?>
                                 <tr>
@@ -45,19 +46,27 @@
                                     </td>
                                     <td><?= $product['price'];?></td>
                                     <td><?= $productsInCart[$product['id']];?></td>
+                                    <td>
+                                        <a class="btn btn-default checkout" href="/cart/delete/<?php echo $product['id'];?>">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                             <?php endforeach; ?>
-                                <tr>
-                                    <td colspan="2">Общая стоимость:</td>
-                                    <td><?= $totalPrice;?></td>
-                                    <td>-</td>
-                                </tr>
-                            
+                            <tr>
+                                <td colspan="2">Общая стоимость:</td>
+                                <td colspan="3"><?= $totalPrice;?></td>
+                            </tr>
                         </table>
+                        <a class="btn btn-default checkout" href="/cart/checkout">
+                            <i class="fa fa-shopping-cart"></i> Оформить заказ
+                        </a>
                     <?php else: ?>
                         <p>Корзина пуста</p>
+                        <a class="btn btn-default checkout" href="/">
+                            <i class="fa fa-shopping-cart"></i> Вернуться к покупкам
+                        </a>
                     <?php endif; ?>
-
                 </div>
 
             </div>

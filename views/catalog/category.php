@@ -33,7 +33,7 @@
                                 <div class="single-products">
                                     <div class="productinfo text-center">
                                         <img src="/template/default/images/home/product<?= $product['id']?>.jpg" alt="" />
-                                        <h2><?= $product['price'];?>$</h2>
+                                        <h2><?= $product['price'];?> so'm</h2>
                                         <p>
                                             <a href="/product/<?= $product['id'];?>">
                                                 ID: <?= $product['id']; ?>,

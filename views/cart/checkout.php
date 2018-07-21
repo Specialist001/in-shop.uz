@@ -30,7 +30,9 @@
                     <?php if ($result): ?>
 
                         <p>Заказ оформлен. Мы Вам перезвоним.</p>
-
+                        <a class="btn btn-default checkout" href="/">
+                            <i class="fa fa-shopping-cart"></i> Вернуться к покупкам
+                        </a>
                     <?php else: ?>
 
                         <p>Выбрано товаров: <?= $totalQuantity; ?>, на сумму: <?= $totalPrice; ?>, грн.</p><br/>
