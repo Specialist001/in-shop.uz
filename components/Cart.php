@@ -49,8 +49,8 @@ class Cart
     {
         $productsInCart = self::getProducts();
 
+        $total = 0;
         if ($productsInCart) {
-            $total = 0;
             foreach ($products as $item) {
                 $total += $item['price'] * $productsInCart[$item['id']];
             }
@@ -64,5 +64,13 @@ class Cart
         if (isset($_SESSION['products'])) {
             unset($_SESSION['products']);
         }
+    }
+
+    public static function deleteProduct($id)
+    {
+        $productsInCart = self::getProducts();
+        unset($productsInCart[$id]);
+
+        $_SESSION['products'] = $productsInCart;
     }
 }

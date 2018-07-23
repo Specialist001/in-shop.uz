@@ -19,6 +19,5 @@ class Order
         $result->bindParam(':products', $products, PDO::PARAM_STR);
 
         return $result->execute();
-        dire();
     }
 }

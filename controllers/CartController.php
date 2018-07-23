@@ -11,6 +11,12 @@ class CartController
         header("Location: $referrer");
     }
 
+    public function actionDelete($id)
+    {
+        Cart::deleteProduct($id);
+        header("Location: /cart");
+    }
+
     public function actionAddAjax($id)
     {
         echo Cart::addProduct($id);
@@ -19,7 +25,7 @@ class CartController
 
     public function actionIndex()
     {
-        $categories = array();
+        //$categories = array();
         $categories = Category::getCategoriesList();
 
         $productsInCart = Cart::getProducts();
@@ -39,17 +45,37 @@ class CartController
     public function actionCheckout()
     {
         $categories = array();
-        $categories = Category::getCategoriesList();
 
         $productsInCart = Cart::getProducts();
-        if ($productsInCart) {
-            $productsIds = array_keys($productsInCart);
-            $products = Product::getProductsByIds($productsIds);
 
-            $totalPrice = Cart::getTotalPrice($products);
+        if ($productsInCart == false) {
+            header("Location: /");
         }
 
+        $categories = Category::getCategoriesList();
+
+        $productsIds = array_keys($productsInCart);
+        $products = Product::getProductsByIds($productsIds);
+        $totalPrice = Cart::getTotalPrice($products);
+
+        $totalQuantity = Cart::countItems();
+
+        $userName = false;
+        $userPhone = false;
+        $userComment = false;
+
         $result = false;
+
+        if (!User::isGuest()) {
+            // Если пользователь не гость
+            // Получаем информацию о пользователе из БД
+            $userId = User::checkLogged();
+            $user = User::getUserById($userId);
+            $userName = $user['name'];
+        } else {
+            // Если гость, поля формы останутся пустыми
+            $userId = false;
+        }
 
         if (isset($_POST['submit'])) {
             $userName = $_POST['userName'];

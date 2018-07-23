@@ -12,6 +12,9 @@
 
 
 <script src="/template/default/js/jquery.js"></script>
+<script src="/template/default/js/jquery.cycle2.min.js"></script>
+<script src="/template/default/js/jquery.cycle2.carousel.min.js"></script>
+
 <script src="/template/default/js/bootstrap.min.js"></script>
 <script src="/template/default/js/jquery.scrollUp.min.js"></script>
 <script src="/template/default/js/price-range.js"></script>

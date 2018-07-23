@@ -108,8 +108,6 @@ class Product
 
     public static function getProductsByIds($idsArray)
     {
-        $products = array();
-
         $db = Db::getConnection();
 
         $idsString = implode(',',$idsArray);
@@ -120,6 +118,7 @@ class Product
         $result->setFetchMode(PDO::FETCH_ASSOC);
 
         $i = 0;
+        $products = array();
         while ($row = $result->fetch()) {
             $products[$i]['id'] = $row['id'];
             $products[$i]['code'] = $row['code'];
@@ -129,5 +128,51 @@ class Product
         }
 
         return $products;
+    }
+
+    /**
+     * Taklif qilingan tovarlar ro'yxatini qaytaradi
+     * @return array <p>Tovarlar massivi</p>
+     */
+    public static function getRecommendedProducts()
+    {
+        $db = Db::getConnection();
+
+        $result = $db->query(
+            'SELECT id, name, price, is_new FROM product ' .
+            'WHERE status = "1" AND is_recommended = "1" ' .
+            'ORDER BY id DESC'
+        );
+
+        $i = 0;
+        $productsList = array();
+        while ($row = $result->fetch()) {
+            $productsList[$i]['id'] = $row['id'];
+            $productsList[$i]['name'] = $row['name'];
+            $productsList[$i]['price'] = $row['price'];
+            $productsList[$i]['is_new'] = $row['is_new'];
+            $i++;
+        }
+        return $productsList;
+    }
+
+
+    /**
+     * Возвращает путь к изображению
+     * @param integer $id
+     * @return string <p>Путь к изображению</p>
+     */
+    public static function getImage($id)
+    {
+        $noImage = 'no-image.jpg';
+
+        $path = '/upload/images/products/';
+
+        $pathToProductImage = $path . $id . '.jpg';
+
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $pathToProductImage)) {
+            return $pathToProductImage;
+        }
+        return $path . $noImage;
     }
 }

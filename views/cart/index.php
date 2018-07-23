@@ -47,7 +47,7 @@
                                     <td><?= $product['price'];?></td>
                                     <td><?= $productsInCart[$product['id']];?></td>
                                     <td>
-                                        <a class="btn btn-default checkout" href="/cart/delete/<?php echo $product['id'];?>">
+                                        <a href="/cart/delete/<?php echo $product['id'];?>">
                                             <i class="fa fa-times"></i>
                                         </a>
                                     </td>
