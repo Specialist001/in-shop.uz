@@ -156,6 +156,41 @@ class Product
         return $productsList;
     }
 
+    /**
+     * Mahsulotlar ro'yxatini qaytaradi
+     * @return array <p>tovarlar massivi</p>
+     */
+    public static function getProductsList()
+    {
+        $db = Db::getConnection();
+
+        $result = $db->query(
+            'SELECT id, name, price, code FROM product ORDER BY id ASC'
+        );
+
+        $productsList = array();
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $productsList[$i]['id']    = $row['id'];
+            $productsList[$i]['name']  = $row['name'];
+            $productsList[$i]['price'] = $row['price'];
+            $productsList[$i]['code']  = $row['code'];
+            $i++;
+        }
+        return $productsList;
+    }
+
+    public static function deleteProductById($id)
+    {
+        $db = Db::getConnection();
+
+        $sql = 'DELETE FROM product WHERE id = :id';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+
+        return $result->execute();
+    }
 
     /**
      * Возвращает путь к изображению
