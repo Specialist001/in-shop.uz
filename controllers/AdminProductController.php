@@ -33,30 +33,71 @@ class AdminProductController extends AdminBase
             $errors = false;
 
             if (!isset($options['name']) || empty($options['name'])) {
-                $errors[] = 'Заполните поля';
+                $errors[] = 'Р—Р°РїРѕР»РЅРёС‚Рµ РїРѕР»СЏ';
             }
             if ($errors == false) {
-                // Если ошибок нет
-                // Добавляем новый товар
                 $id = Product::createProduct($options);
 
-                // Если запись добавлена
                 if ($id) {
-                    // Проверим, загружалось ли через форму изображение
                     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                        // Если загружалось, переместим его в нужную папке, дадим новое имя
                         move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
                     }
                 };
 
-                // Перенаправляем пользователя на страницу управлениями товарами
                 header("Location: /admin/product");
             }
 
         }
 
-        // Подключаем вид
         require_once(ROOT . '/views/admin_product/create.php');
+        return true;
+    }
+
+    public function actionUpdate($id)
+    {
+        // РџСЂРѕРІРµСЂРєР° РґРѕСЃС‚СѓРїР°
+        self::checkAdmin();
+
+        // РџРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє РєР°С‚РµРіРѕСЂРёР№ РґР»СЏ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР°
+        $categoriesList = Category::getCategoriesListAdmin();
+
+        // РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ Рѕ РєРѕРЅРєСЂРµС‚РЅРѕРј Р·Р°РєР°Р·Рµ
+        $product = Product::getProductById($id);
+
+        // РћР±СЂР°Р±РѕС‚РєР° С„РѕСЂРјС‹
+        if (isset($_POST['submit'])) {
+            // Р•СЃР»Рё С„РѕСЂРјР° РѕС‚РїСЂР°РІР»РµРЅР°
+            // РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ РёР· С„РѕСЂРјС‹ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ. РџСЂРё РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё РјРѕР¶РЅРѕ РІР°Р»РёРґРёСЂРѕРІР°С‚СЊ Р·РЅР°С‡РµРЅРёСЏ
+            $options['name'] = $_POST['name'];
+            $options['code'] = $_POST['code'];
+            $options['price'] = $_POST['price'];
+            $options['category_id'] = $_POST['category_id'];
+            $options['brand'] = $_POST['brand'];
+            $options['availability'] = $_POST['availability'];
+            $options['description'] = $_POST['description'];
+            $options['is_new'] = $_POST['is_new'];
+            $options['is_recommended'] = $_POST['is_recommended'];
+            $options['status'] = $_POST['status'];
+
+            // РЎРѕС…СЂР°РЅСЏРµРј РёР·РјРµРЅРµРЅРёСЏ
+            if (Product::updateProductById($id, $options)) {
+
+
+                // Р•СЃР»Рё Р·Р°РїРёСЃСЊ СЃРѕС…СЂР°РЅРµРЅР°
+                // РџСЂРѕРІРµСЂРёРј, Р·Р°РіСЂСѓР¶Р°Р»РѕСЃСЊ Р»Рё С‡РµСЂРµР· С„РѕСЂРјСѓ РёР·РѕР±СЂР°Р¶РµРЅРёРµ
+                if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
+
+                    // Р•СЃР»Рё Р·Р°РіСЂСѓР¶Р°Р»РѕСЃСЊ, РїРµСЂРµРјРµСЃС‚РёРј РµРіРѕ РІ РЅСѓР¶РЅСѓСЋ РїР°РїРєРµ, РґР°РґРёРј РЅРѕРІРѕРµ РёРјСЏ
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
+                }
+            }
+
+            // РџРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅР° СЃС‚СЂР°РЅРёС†Сѓ СѓРїСЂР°РІР»РµРЅРёСЏРјРё С‚РѕРІР°СЂР°РјРё
+            header("Location: /admin/product");
+        }
+
+        // РџРѕРґРєР»СЋС‡Р°РµРј РІРёРґ
+        require_once(ROOT . '/views/admin_product/update.php');
         return true;
     }
 
@@ -65,15 +106,11 @@ class AdminProductController extends AdminBase
         self::checkAdmin();
 
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Удаляем товар
             Product::deleteProductById($id);
 
-            // Перенаправляем пользователя на страницу управлениями товарами
             header("Location: /admin/product");
         }
 
-        // Подключаем вид
         require_once(ROOT . '/views/admin_product/delete.php');
         return true;
     }
