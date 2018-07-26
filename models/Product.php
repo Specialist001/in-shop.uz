@@ -6,20 +6,23 @@ class Product
 
     public static function getLatestProducts($count = self::SHOW_BY_DEFAULT)
     {
-        $count = intval($count);
+        //$count = intval($count);
 
         $db = Db::getConnection();
 
-        $productsList = array();
+        $sql = 'SELECT id, name, price, is_new FROM product ' .
+                'WHERE status ="1" ORDER BY id DESC ' .
+                'LIMIT :count';
 
-        $result = $db->query(
-            'SELECT id, name, price, image, is_new FROM product ' .
-            'WHERE status = "1"' .
-            'ORDER BY id DESC ' .
-            'LIMIT ' . $count
-        );
+        $result = $db->prepare($sql);
+        $result->bindParam(':count', $count, PDO::PARAM_INT);
+
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+
+        $result->execute();
 
         $i = 0;
+        $productsList = array();
         while ($row = $result->fetch()) {
             $productsList[$i]['id']     = $row['id'];
             $productsList[$i]['name']   = $row['name'];
@@ -32,77 +35,73 @@ class Product
         return $productsList;
     }
 
-    public static function getProductsListByCategory($categoryId = false, $page = 1)
+    public static function getProductsListByCategory($categoryId, $page = 1)
     {
-        if ($categoryId) {
+        $limit = Product::SHOW_BY_DEFAULT;
 
-            $page = intval($page);
-            $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
+        $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
 
-            $db = Db::getConnection();
-            $products = array();
-            $result = $db->query(
-                'SELECT id, name, price, image, is_new FROM product ' .
-                'WHERE status = "1" AND category_id = '. $categoryId .
-                ' ORDER BY id ASC ' .
-                'LIMIT ' . self::SHOW_BY_DEFAULT . ' OFFSET ' . $offset
-            );
-            
-            // $result = $db->query("SELECT id, name, price, image, is_new FROM product "
-            //         . "WHERE status = '1' AND category_id = '$categoryId' "
-            //         . "ORDER BY id DESC "                
-            //         . "LIMIT ".self::SHOW_BY_DEFAULT);
+        $db = Db::getConnection();
 
-            $i = 0;
-            while ($row = $result->fetch()) {
-                $products[$i]['id']     = $row['id'];
-                $products[$i]['name']   = $row['name'];
-                $products[$i]['image']  = $row['image'];
-                $products[$i]['price']  = $row['price'];
-                $products[$i]['is_new'] = $row['is_new'];
-                $i++;
-            }
+        $sql = 'SELECT id, name, price, image, is_new FROM product ' .
+               'WHERE status = 1 AND category_id = :category_id' .
+               ' ORDER BY id ASC ' .
+               'LIMIT :limit OFFSET :offfset';
 
-            return $products;
+        // Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
+        $result->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $result->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+        $result->execute();
+
+        $i = 0;
+        $products = array();
+        while ($row = $result->fetch()) {
+            $products[$i]['id']     = $row['id'];
+            $products[$i]['name']   = $row['name'];
+            $products[$i]['image']  = $row['image'];
+            $products[$i]['price']  = $row['price'];
+            $products[$i]['is_new'] = $row['is_new'];
+            $i++;
         }
+
+        return $products;
     }
 
     public static function getProductById($id)
     {
-        $id = intval($id);
+        //$id = intval($id);
 
-        if ($id) {
-            $db = Db::getConnection();
+        $db = Db::getConnection();
 
-            $result = $db->query(
-                'SELECT * FROM product WHERE id=' . $id
-            );
-            $result->setFetchMode(PDO::FETCH_ASSOC);
+        $sql = 'SELECT * FROM product WHERE id = :id';
 
-            // $i = 0;
-            // while($row = $result->fetch()) {
-            //     $product[$i]['name']   = $row['name'];
-            //     $product[$i]['image']  = $row['image'];
-            //     $product[$i]['price']  = $row['price'];
-            //     $product[$i]['is_new'] = $row['is_new'];
-            //     $i++;
-            // }
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+        $result->execute();
 
-            return $result->fetch();
-        }
-
+        return $result->fetch();
     }
 
+    /**
+     * Возвращаем количество товаров в указанной категории
+     * @param integer $categoryId
+     * @return integer
+     */
     public static function getTotalProductsInCategory($categoryId)
     {
         $db = Db::getConnection();
 
-        $result = $db->query(
-            'SELECT count(id) AS count FROM product ' .
-            'WHERE status="1" AND category_id ="' . $categoryId . '"');
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-        $row = $result->fetch();
+        $sql = 'SELECT count(id) AS count FROM product WHERE status="1" AND category_id = :category_id';
 
+        $result = $db->prepare($sql);
+        $result->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
+        $result->execute();
+
+        $row = $result->fetch();
         return $row['count'];
     }
 
@@ -115,6 +114,8 @@ class Product
         $sql = "SELECT * FROM product WHERE status='1' AND id IN ($idsString)";
 
         $result = $db->query($sql);
+
+        // Указываем, что хотим получить данные в виде массива
         $result->setFetchMode(PDO::FETCH_ASSOC);
 
         $i = 0;
@@ -180,6 +181,11 @@ class Product
         return $productsList;
     }
 
+    /**
+     * Удаляет товар с указанным id
+     * @param integer $id <p>id товара</p>
+     * @return boolean <p>Результат выполнения метода</p>
+     */
     public static function deleteProductById($id)
     {
         $db = Db::getConnection();
@@ -208,10 +214,10 @@ class Product
 
     public static function updateProductById($id, $options)
     {
-        // Соединение с БД
+        // РЎРѕРµРґРёРЅРµРЅРёРµ СЃ Р‘Р”
         $db = Db::getConnection();
 
-        // Текст запроса к БД
+        // РўРµРєСЃС‚ Р·Р°РїСЂРѕСЃР° Рє Р‘Р”
         $sql = "UPDATE product
             SET
                 name = :name,
@@ -226,7 +232,7 @@ class Product
                 status = :status
             WHERE id = :id";
 
-        // Получение и возврат результатов. Используется подготовленный запрос
+        // РџРѕР»СѓС‡РµРЅРёРµ Рё РІРѕР·РІСЂР°С‚ СЂРµР·СѓР»СЊС‚Р°С‚РѕРІ. Р�СЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїРѕРґРіРѕС‚РѕРІР»РµРЅРЅС‹Р№ Р·Р°РїСЂРѕСЃ
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
@@ -242,12 +248,38 @@ class Product
         return $result->execute();
     }
 
-    public static function createProduct($options)
+    public static function getProductsByIds($idsArray)
     {
-        // Соединение с БД
         $db = Db::getConnection();
 
-        // Текст запроса к БД
+        $idsString = implode(',', $idsArray);
+
+        $sql = "SELECT * FROM product WHERE status='1' AND id IN ($idsString)";
+
+        $result = $db->query($sql);
+
+        // Указываем, что хотим получить данные в виде массива
+        $result->setFetchMode(PDO::FETCH_ASSOC);
+
+        // Получение и возврат результатов
+        $i = 0;
+        $products = array();
+        while ($row = $result->fetch()) {
+            $products[$i]['id'] = $row['id'];
+            $products[$i]['code'] = $row['code'];
+            $products[$i]['name'] = $row['name'];
+            $products[$i]['price'] = $row['price'];
+            $i++;
+        }
+        return $products;
+    }
+
+    public static function createProduct($options)
+    {
+        //
+        $db = Db::getConnection();
+
+        //
         $sql = 'INSERT INTO product '
             . '(name, code, price, category_id, brand, availability,'
             . 'description, is_new, is_recommended, status)'
@@ -255,7 +287,6 @@ class Product
             . '(:name, :code, :price, :category_id, :brand, :availability,'
             . ':description, :is_new, :is_recommended, :status)';
 
-        // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
         $result->bindParam(':code', $options['code'], PDO::PARAM_STR);
@@ -268,10 +299,9 @@ class Product
         $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
         $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
         if ($result->execute()) {
-            // Если запрос выполенен успешно, возвращаем id добавленной записи
+            // Р•СЃР»Рё Р·Р°РїСЂРѕСЃ РІС‹РїРѕР»РµРЅРµРЅ СѓСЃРїРµС€РЅРѕ, РІРѕР·РІСЂР°С‰Р°РµРј id РґРѕР±Р°РІР»РµРЅРЅРѕР№ Р·Р°РїРёСЃРё
             return $db->lastInsertId();
         }
-        // Иначе возвращаем 0
         return 0;
     }
 }
