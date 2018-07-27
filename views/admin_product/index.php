@@ -38,6 +38,7 @@
                 <?php endforeach; ?>
             </table>
         </div>
+        <?php echo $total; ?>
         <div style="margin:0 auto; text-align: center;"><?= $pagination->get(); ?></div>
     </div>
 </section>

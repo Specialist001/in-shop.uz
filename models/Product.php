@@ -172,13 +172,26 @@ class Product
      * Mahsulotlar ro'yxatini qaytaradi
      * @return array <p>tovarlar massivi</p>
      */
-    public static function getProductsList()
+    public static function getProductsList($page = 1)
     {
+        $sort = 'ASC';
+        $limit = Product::SHOW_BY_DEFAULT;
+        $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
+
         $db = Db::getConnection();
 
-        $result = $db->query(
-            'SELECT id, name, price, code FROM product ORDER BY id ASC'
-        );
+        $sql = 'SELECT id, name, price, code FROM product ORDER BY id ' . $sort . ' LIMIT :limit OFFSET :offset';
+
+        /*$result = $db->query(
+            'SELECT id, name, price, code FROM product ORDER BY id ASC LIMIT :limit OFFSET :offset'
+        );*/
+
+        // Используется подготовленный запрос
+        $result = $db->prepare($sql);
+        $result->bindParam(':limit', $limit, PDO::PARAM_INT);
+        $result->bindParam(':offset', $offset, PDO::PARAM_INT);
+
+        $result->execute();
 
         $productsList = array();
         $i = 0;

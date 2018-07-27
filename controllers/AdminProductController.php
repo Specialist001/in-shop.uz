@@ -2,16 +2,20 @@
 
 class AdminProductController extends AdminBase
 {
-    public function actionIndex($id, $page = 1)
+    public function actionIndex($page = 1)
     {
         self::checkAdmin();
+        //$SHOW_BY_DEFAULT = 6;
 
-        $productsList = Product::getProductsList();
+        $productsList = array();
+        $productsList = Product::getProductsList($page);
 
-        $total = Product::getTotalProducts($id);
+        $total = Product::getTotalProducts();
+        //echo $total;
         $pagination = new Pagination($total, $page, Product::SHOW_BY_DEFAULT, 'page-');
 
         require_once(ROOT . '/views/admin_product/index.php');
+        print_r($productsList);
         return true;
     }
 
