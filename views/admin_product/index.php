@@ -19,7 +19,7 @@
 
             <table class="table-bordered table-striped table">
                 <tr>
-                    <th>ID товара</th>
+                    <th style="width: 9%">ID товара</th>
                     <th>Артикул</th>
                     <th>Название товара</th>
                     <th>Цена</th>
@@ -28,16 +28,17 @@
                 </tr>
                 <?php foreach ($productsList as $product): ?>
                 <tr>
-                    <td><?= $product['id']; ?></td>
-                    <td><?= $product['code']; ?></td>
-                    <td><?= $product['name']; ?></td>
-                    <td><?= $product['price']; ?></td>
-                    <td><a href="/admin/product/update/<?= $product['id']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
-                    <td><a href="/admin/product/delete/<?= $product['id']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
+                    <td style="width: 9%"><a href="/admin/product/update/<?php echo $product['id']; ?>"><?php echo $product['id']; ?><a/></td>
+                    <td><?php echo $product['code']; ?></td>
+                    <td><?php echo $product['name']; ?></td>
+                    <td><?php echo $product['price']; ?></td>
+                    <td><a href="/admin/product/update/<?php echo $product['id']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
+                    <td><a href="/admin/product/delete/<?php echo $product['id']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
                 </tr>
                 <?php endforeach; ?>
             </table>
         </div>
+        <div style="margin:0 auto; text-align: center;"><?= $pagination->get(); ?></div>
     </div>
 </section>
 

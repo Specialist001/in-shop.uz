@@ -11,16 +11,16 @@ class CartController
         header("Location: $referrer");
     }
 
-    public function actionDelete($id)
-    {
-        Cart::deleteProduct($id);
-        header("Location: /cart");
-    }
-
     public function actionAddAjax($id)
     {
         echo Cart::addProduct($id);
         return true;
+    }
+
+    public function actionDelete($id)
+    {
+        Cart::deleteProduct($id);
+        header("Location: /cart");
     }
 
     public function actionIndex()

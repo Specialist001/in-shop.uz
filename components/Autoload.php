@@ -2,12 +2,13 @@
 
 function __autoload($class_name)
 {
-    $array_path = array(
+    $array_paths = array(
         '/models/',
-        '/components/'
+        '/components/',
+        '/controllers/',
     );
 
-    foreach ($array_path as $path) {
+    foreach ($array_paths as $path) {
         $path = ROOT . $path . $class_name . '.php';
         if (is_file($path)) {
             include_once $path;

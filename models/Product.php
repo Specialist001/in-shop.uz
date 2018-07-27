@@ -26,7 +26,7 @@ class Product
         while ($row = $result->fetch()) {
             $productsList[$i]['id']     = $row['id'];
             $productsList[$i]['name']   = $row['name'];
-            $productsList[$i]['image']  = $row['image'];
+            //$productsList[$i]['image']  = $row['image'];
             $productsList[$i]['price']  = $row['price'];
             $productsList[$i]['is_new'] = $row['is_new'];
             $i++;
@@ -43,10 +43,9 @@ class Product
 
         $db = Db::getConnection();
 
-        $sql = 'SELECT id, name, price, image, is_new FROM product ' .
-               'WHERE status = 1 AND category_id = :category_id' .
-               ' ORDER BY id ASC ' .
-               'LIMIT :limit OFFSET :offfset';
+        $sql = 'SELECT id, name, price, is_new FROM product ' .
+               'WHERE status = 1 AND category_id = :category_id ' .
+               'ORDER BY id ASC LIMIT :limit OFFSET :offset';
 
         // Используется подготовленный запрос
         $result = $db->prepare($sql);
@@ -61,7 +60,6 @@ class Product
         while ($row = $result->fetch()) {
             $products[$i]['id']     = $row['id'];
             $products[$i]['name']   = $row['name'];
-            $products[$i]['image']  = $row['image'];
             $products[$i]['price']  = $row['price'];
             $products[$i]['is_new'] = $row['is_new'];
             $i++;
@@ -84,6 +82,19 @@ class Product
         $result->execute();
 
         return $result->fetch();
+    }
+
+    public static function getTotalProducts()
+    {
+        $db = Db::getConnection();
+
+        $sql = 'SELECT count(id) AS count FROM product';
+
+        $result = $db->prepare($sql);
+        $result->execute();
+
+        $row = $result->fetch();
+        return $row['count'];
     }
 
     /**
@@ -246,32 +257,6 @@ class Product
         $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
         $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
         return $result->execute();
-    }
-
-    public static function getProductsByIds($idsArray)
-    {
-        $db = Db::getConnection();
-
-        $idsString = implode(',', $idsArray);
-
-        $sql = "SELECT * FROM product WHERE status='1' AND id IN ($idsString)";
-
-        $result = $db->query($sql);
-
-        // Указываем, что хотим получить данные в виде массива
-        $result->setFetchMode(PDO::FETCH_ASSOC);
-
-        // Получение и возврат результатов
-        $i = 0;
-        $products = array();
-        while ($row = $result->fetch()) {
-            $products[$i]['id'] = $row['id'];
-            $products[$i]['code'] = $row['code'];
-            $products[$i]['name'] = $row['name'];
-            $products[$i]['price'] = $row['price'];
-            $i++;
-        }
-        return $products;
     }
 
     public static function createProduct($options)

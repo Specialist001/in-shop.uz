@@ -6,7 +6,7 @@ class AdminCategoryController extends AdminBase
     {
         self::checkAdmin();
 
-        $categories = Category::getCategoriesListAdmin();
+        $categoriesList = Category::getCategoriesListAdmin();
 
         require_once(ROOT . '/views/admin_category/index.php');
         return true;

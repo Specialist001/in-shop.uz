@@ -32,14 +32,14 @@
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="/template/default/images/home/product1.jpg" alt="" />
-                                        <h2><?= $product['price']; ?> so'm</h2>
+                                        <img src="<?php echo Product::getImage($product['id']); ?>" alt="" />
+                                        <h2><?php echo $product['price']; ?> so'm</h2>
                                         <p>
-                                            <a href="/product/<?=$product['id']?>">
-                                                <?= $product['name']; ?>
+                                            <a href="/product/<?php echo$product['id']?>">
+                                                <?php echo $product['name']; ?>
                                             </a>
                                         </p>
-                                        <a href="" data-id="<?= $product['id'];?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                        <a href="" data-id="<?php echo $product['id'];?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                     </div>
                                     <?php if ($product['is_new']): ?>
                                     <img src="/template/default/images/home/new.png" class="new" alt="" />
@@ -67,13 +67,13 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
-                                                <img src="<?= Product::getImage($sliderItem['id']); ?>" alt="" />
-                                                <h2><?= $sliderItem['price']; ?> so'm</h2>
-                                                <a href="/product/<?= $sliderItem['id']; ?>">
-                                                    <?= $product['name']; ?>
+                                                <img src="<?php echo Product::getImage($sliderItem['id']); ?>" alt="" />
+                                                <h2><?php echo $sliderItem['price']; ?> so'm</h2>
+                                                <a href="/product/<?php echo $sliderItem['id']; ?>">
+                                                    <?php echo $product['name']; ?>
                                                 </a>
                                                 <br/><br/>
-                                                <a href="#" class="btn btn-default add-to-cart" data-id="<?= $sliderItem['id']; ?>">
+                                                <a href="#" class="btn btn-default add-to-cart" data-id="<?php echo $sliderItem['id']; ?>">
                                                     <i class="fa fa-shopping-cart"></i>В корзину
                                                 </a>
                                             </div>

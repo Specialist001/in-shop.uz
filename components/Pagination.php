@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Класс для генерации постраничной навигации
+ * Класс Pagination для генерации постраничной навигации
  */
 
 class Pagination
@@ -44,10 +44,10 @@ class Pagination
 
     /**
      * Запуск необходимых данных для навигации
-     * @param integer $total - общее количество записей
-     * @param integer $limit - количество записей на страницу
-     * 
-     * @return
+     * @param type $total <p>Общее количество записей</p>
+     * @param type $currentPage <p>Номер текущей страницы</p>
+     * @param type $limit <p>Количество записей на страницу</p>
+     * @param type $index <p>Ключ для url</p>
      */
     public function __construct($total, $currentPage, $limit, $index)
     {
@@ -62,14 +62,13 @@ class Pagination
 
         # Устанавливаем количество страниц
         $this->amount = $this->amount();
-
+        
         # Устанавливаем номер текущей страницы
         $this->setCurrentPage($currentPage);
     }
 
     /**
      *  Для вывода ссылок
-     * 
      * @return HTML-код со ссылками навигации
      */
     public function get()
@@ -79,7 +78,7 @@ class Pagination
 
         # Получаем ограничения для цикла
         $limits = $this->limits();
-
+        
         $html = '<ul class="pagination">';
         # Генерируем ссылки
         for ($page = $limits[0]; $page <= $limits[1]; $page++) {
@@ -140,15 +139,15 @@ class Pagination
     {
         # Вычисляем ссылки слева (чтобы активная ссылка была посередине)
         $left = $this->current_page - round($this->max / 2);
-
+        
         # Вычисляем начало отсчёта
         $start = $left > 0 ? $left : 1;
 
         # Если впереди есть как минимум $this->max страниц
-        if ($start + $this->max <= $this->amount)
+        if ($start + $this->max <= $this->amount) {
         # Назначаем конец цикла вперёд на $this->max страниц или просто на минимум
             $end = $start > 1 ? $start + $this->max : $this->max;
-        else {
+        } else {
             # Конец - общее количество страниц
             $end = $this->amount;
 
@@ -171,9 +170,9 @@ class Pagination
         # Получаем номер страницы
         $this->current_page = $currentPage;
 
-        # Если текущая страница боле нуля
+        # Если текущая страница больше нуля
         if ($this->current_page > 0) {
-            # Если текунщая страница меньше общего количества страниц
+            # Если текущая страница меньше общего количества страниц
             if ($this->current_page > $this->amount)
             # Устанавливаем страницу на последнюю
                 $this->current_page = $this->amount;
@@ -183,14 +182,14 @@ class Pagination
     }
 
     /**
-     * Для получеия общего числа страниц
+     * Для получения общего числа страниц
      * 
      * @return число страниц
      */
     private function amount()
     {
         # Делим и возвращаем
-        return round($this->total / $this->limit);
+        return ceil($this->total / $this->limit);
     }
 
 }

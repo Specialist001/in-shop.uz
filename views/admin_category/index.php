@@ -30,7 +30,7 @@
                 </tr>
                 <?php foreach ($categoriesList as $category): ?>
                     <tr>
-                        <td><?php echo $category['id']; ?></td>
+                        <td><a href="/admin/category/update/<?php echo $category['id']; ?>"><?php echo $category['id']; ?></a></td>
                         <td><?php echo $category['name']; ?></td>
                         <td><?php echo $category['sort_order']; ?></td>
                         <td><?php echo Category::getStatusText($category['status']); ?></td>

@@ -26,6 +26,8 @@ return array(
     'admin/product/delete/([0-9]+)' => 'adminProduct/delete/$1',
     'admin/product'                 => 'adminProduct/index',
 
+    'admin/product/page-([0-9]+)' => 'admin/product/$1',
+
     // Управление категориями:
     'admin/category/create'          => 'adminCategory/create',
     'admin/category/update/([0-9]+)' => 'adminCategory/update/$1',
@@ -35,12 +37,14 @@ return array(
     // Управление заказами:
     'admin/order/update/([0-9]+)' => 'adminOrder/update/$1',
     'admin/order/delete/([0-9]+)' => 'adminOrder/delete/$1',
-    'admin/order/view/([0-9]+)' => 'adminOrder/view/$1',
-    'admin/order' => 'adminOrder/index',
+    'admin/order/view/([0-9]+)'   => 'adminOrder/view/$1',
+    'admin/order'                 => 'adminOrder/index',
 
     'admin' => 'admin/index',
 
     'contacts' => 'site/contact',
+    'about' => 'site/about',
 
+    'index.php' => 'site/index',
     '' => 'site/index',
 );

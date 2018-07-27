@@ -20,7 +20,7 @@
             
             <table class="table-bordered table-striped table">
                 <tr>
-                    <th>ID заказа</th>
+                    <th style="width: 9%">ID заказа</th>
                     <th>Имя покупателя</th>
                     <th>Телефон покупателя</th>
                     <th>Дата оформления</th>
@@ -31,7 +31,7 @@
                 </tr>
                 <?php foreach ($ordersList as $order): ?>
                     <tr>
-                        <td>
+                        <td style="width: 9%">
                             <a href="/admin/order/view/<?php echo $order['id']; ?>">
                                 <?php echo $order['id']; ?>
                             </a>

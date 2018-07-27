@@ -30,7 +30,7 @@ class Order
         $ordersList = array();
         $i = 0;
         while ($row = $result->fetch()) {
-            $ordersList[$i]['id']          = $row['id'];
+            $ordersList[$i]['id']         = $row['id'];
             $ordersList[$i]['user_name']  = $row['user_name'];
             $ordersList[$i]['user_phone'] = $row['user_phone'];
             $ordersList[$i]['date']       = $row['date'];
@@ -81,7 +81,6 @@ class Order
 
         $sql = 'DELETE FROM product_order WHERE id = :id';
 
-        // ��������� � ������� �����������. ������������ �������������� ������
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         return $result->execute();
@@ -100,7 +99,6 @@ class Order
                 status = :status
             WHERE id = :id";
 
-        // ��������� � ������� �����������. ������������ �������������� ������
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->bindParam(':user_name', $userName, PDO::PARAM_STR);
