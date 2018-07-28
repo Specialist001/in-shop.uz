@@ -72,6 +72,15 @@ class User
 		return true;
 	}
 
+	public static function isAdmin()
+	{
+		if (AdminBase::checkAdmin() == true)
+		{
+			return true;
+		}
+		return false;
+	}
+
 	public static function checkName($name)
 	{
 		if (strlen($name) >= 2) {
