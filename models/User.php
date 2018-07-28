@@ -74,7 +74,7 @@ class User
 
 	public static function isAdmin()
 	{
-		if (AdminBase::checkAdmin() == true)
+		if (AdminBase::checkIsAdmin() == true)
 		{
 			return true;
 		}
