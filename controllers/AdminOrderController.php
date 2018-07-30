@@ -57,6 +57,8 @@ class AdminOrderController extends AdminBase
         // Получаем список товаров в заказе
         $products = Product::getProductsByIds($productsIds);
 
+        $total = 0;
+
         // Подключаем вид
         require_once(ROOT . '/views/admin_order/view.php');
         return true;

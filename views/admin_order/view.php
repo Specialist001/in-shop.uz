@@ -64,16 +64,25 @@
                     <th>Название</th>
                     <th>Цена</th>
                     <th>Количество</th>
+                    <th>Общ. цена</th>
                 </tr>
                 <?php foreach ($products as $product): ?>
                     <tr>
                         <td style="width: 12%"><?php echo $product['id']; ?></td>
                         <td><?php echo $product['code']; ?></td>
                         <td><?php echo $product['name']; ?></td>
-                        <td>$<?php echo $product['price']; ?></td>
+                        <td><?php echo $product['price']; ?> сум</td>
                         <td><?php echo $productsQuantity[$product['id']]; ?></td>
+                        <td><?php echo $product['price'] * $productsQuantity[$product['id']]; ?> сум</td>
+                        <?php $total += $product['price'] * $productsQuantity[$product['id']]; ?>
                     </tr>
                 <?php endforeach; ?>
+                    <tr>
+                        <th>ИТОГО:</th>
+                        <td colspan="4"></td>
+                        <th><?php echo $total; ?> сум</th>
+                    </tr>
+
             </table>
 
             <a href="/admin/order/" class="btn btn-default back"><i class="fa fa-arrow-left"></i> Назад</a>

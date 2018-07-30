@@ -55,17 +55,17 @@ class UserController
             $errors = false;
 
             if (!User::checkEmail($email)) {
-                $errors[] = 'Неправильный e-mail';
+                $errors['email'] = 'Неправильный e-mail';
             }
 
             if (!User::checkPassword($password)) {
-                $errors[] = 'Пароль не должен быть короче 6-ти символов';
+                $errors['password'] = 'Пароль не должен быть короче 6-ти символов';
             }
 
             $userId = User::checkUserData($email, $password);
 
             if ($userId == false) {
-                $errors[] = 'Неправильные данные для входа на сайт';
+                $errors['errors'] = 'Неправильные данные для входа на сайт';
             } else {
                 User::auth($userId);
 
@@ -80,8 +80,9 @@ class UserController
 
     public function actionLogout()
     {
-        session_start();
+        //session_start();
         unset($_SESSION["user"]);
+        unset($_SESSION["admin"]);
         header("Location: /");
     }
 }
