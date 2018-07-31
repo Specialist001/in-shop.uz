@@ -38,6 +38,7 @@ class UserController
 
         }
 
+        $title = 'Регистрация';
         require_once(ROOT . '/views/user/register.php');
 
         return true;

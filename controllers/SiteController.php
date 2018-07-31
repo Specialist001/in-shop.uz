@@ -12,6 +12,7 @@ class SiteController
 
         $sliderProducts = Product::getRecommendedProducts();
 
+        $title = 'Main Page';
         require_once(ROOT . '/views/site/index.php');
 
         return true;
@@ -45,6 +46,7 @@ class SiteController
             }
         }
 
+        $title = 'Контакты';
         require_once(ROOT . '/views/site/contact.php');
         
         return true;        

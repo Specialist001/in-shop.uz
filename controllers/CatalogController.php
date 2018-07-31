@@ -27,6 +27,9 @@ class CatalogController
 
         $pagination = new Pagination($total, $page, Product::SHOW_BY_DEFAULT, 'page-');
 
+        $titleCat = Category::getCategoryById($categoryId);
+        $titleCategory = $titleCat['name'];
+
         require_once(ROOT . '/views/catalog/category.php');
 
         return true;

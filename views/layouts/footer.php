@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <p class="pull-left">Copyright © 2018</p>
-                <p class="pull-right">in-Shop.uz</p>
+                <p class="pull-right">inShop.uz</p>
             </div>
         </div>
     </div>

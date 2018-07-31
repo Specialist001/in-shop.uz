@@ -8,7 +8,7 @@
                         
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="/admin">Админпанель</a></li>
+                    <li><a href="/admin">Админ панель</a></li><span> > </span>
                     <li class="active">Управление заказами</li>
                 </ol>
             </div>

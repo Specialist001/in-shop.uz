@@ -15,9 +15,27 @@
             <br/>
             
             <ul>
-                <li><a href="/admin/product">Управление товарами</a></li>
-                <li><a href="/admin/category">Управление категориями</a></li>
-                <li><a href="/admin/order">Управление заказами</a></li>
+                <li>
+                    <div class="col-md-3">
+                        <div class="panel panel-config bg-lime">
+                            <a href="/admin/product" class="panel-title"><div>Управление товарами</div></a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-md-3">
+                        <div class="panel panel-config bg-orange">
+                            <a href="/admin/category" class="panel-title"><div>Управление категориями</div></a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="col-md-3">
+                        <div class="panel panel-config bg-blue">
+                            <a href="/admin/order" class="panel-title"><div>Управление заказами</div></a>
+                        </div>
+                    </div>
+                </li>
             </ul>
             
         </div>
