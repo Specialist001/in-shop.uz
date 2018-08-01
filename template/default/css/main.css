@@ -369,7 +369,7 @@ ul.sub-menu {
   height: 50px;
   width: 100%;
   bottom: 1%;
-  position: absolute;
+  position: relative;
 }
 
 
