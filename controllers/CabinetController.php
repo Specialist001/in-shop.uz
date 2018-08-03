@@ -7,7 +7,7 @@ class CabinetController
         $userId = User::checkLogged();
 
         $user = User::getUserById($userId);
-        
+        $title = 'Кабинет';
         require_once(ROOT . '/views/cabinet/index.php');
 
         return true;

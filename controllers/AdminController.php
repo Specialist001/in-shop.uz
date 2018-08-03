@@ -9,4 +9,9 @@ class AdminController extends AdminBase
         require_once(ROOT . '/views/admin/index.php');
         return true;
     }
+
+    public function actionProduct()
+    {
+
+    }
 }

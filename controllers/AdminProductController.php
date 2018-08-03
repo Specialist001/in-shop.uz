@@ -12,10 +12,10 @@ class AdminProductController extends AdminBase
 
         $total = Product::getTotalProducts();
         //echo $total;
-        $pagination = new Pagination($total, $page, Product::SHOW_BY_DEFAULT, 'page-');
+        $pagination = new Pagination($total, $page, Product::SHOW_BY_DEFAULT, '');
 
         require_once(ROOT . '/views/admin_product/index.php');
-        print_r($productsList);
+        //print_r($productsList);
         return true;
     }
 

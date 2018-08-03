@@ -10,6 +10,7 @@ class CatalogController
         $latestProducts = array();
         $latestProducts = Product::getLatestProducts(12);
 
+        $title = "Каталог";
         require_once(ROOT . '/views/catalog/index.php');
 
         return true;

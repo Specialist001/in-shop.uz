@@ -180,7 +180,7 @@ class Product
 
         $db = Db::getConnection();
 
-        $sql = 'SELECT id, name, price, code FROM product ORDER BY id ' . $sort . ' LIMIT :limit OFFSET :offset';
+        $sql = 'SELECT id, name, price, code, status FROM product ORDER BY id ' . $sort . ' LIMIT :limit OFFSET :offset';
 
         /*$result = $db->query(
             'SELECT id, name, price, code FROM product ORDER BY id ASC LIMIT :limit OFFSET :offset'
@@ -200,6 +200,7 @@ class Product
             $productsList[$i]['name']  = $row['name'];
             $productsList[$i]['price'] = $row['price'];
             $productsList[$i]['code']  = $row['code'];
+            $productsList[$i]['status']  = $row['status'];
             $i++;
         }
         return $productsList;

@@ -26,7 +26,7 @@ return array(
     'admin/product/delete/([0-9]+)' => 'adminProduct/delete/$1',
     'admin/product'                 => 'adminProduct/index',
 
-    'admin/product/page-([0-9]+)' => 'admin/product/$1',
+    'admin/product/([0-9]+)'        => 'admin/product/$1',
 
     // Управление категориями:
     'admin/category/create'          => 'adminCategory/create',
@@ -44,6 +44,7 @@ return array(
 
     'contacts' => 'site/contact',
     'about' => 'site/about',
+    'blog'  => 'blog/index',
 
     'index.php' => 'site/index',
     '' => 'site/index',

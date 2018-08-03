@@ -73,7 +73,7 @@ class UserController
                 header("Location: /cabinet/");
             }
         }
-
+        $title = 'Авторизация';
         require_once(ROOT . '/views/user/login.php');
 
         return true;

@@ -84,7 +84,9 @@
                     </tr>
 
             </table>
-
+                <a href="/admin/order/delete/<?php echo $order['id']; ?>" class="btn btn-danger">Удалить</a>
+                <br/>
+                <br/>
             <a href="/admin/order/" class="btn btn-default back"><i class="fa fa-arrow-left"></i> Назад</a>
         </div>
 

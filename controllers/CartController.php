@@ -106,8 +106,7 @@ class CartController
 
                 if ($result) {
                     $adminEmail = "darking-uz@yandex.ru";
-                    $message = 'http://in-shop.uz/admin/orders <br>' .
-                                $products['id'] . '<br/>' . $totalPrice;
+                    $message = 'http://in-shop.uz/admin/orders <br>' . $totalPrice;
                     $subject = 'Новый заказ';
                     mail($adminEmail, $subject, $message);
 
@@ -144,7 +143,7 @@ class CartController
                 }
             }
         }
-
+        $title = 'Оформить заказ';
         require_once(ROOT . '/views/cart/checkout.php');
 
         return true;

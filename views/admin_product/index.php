@@ -23,6 +23,7 @@
                     <th>Артикул</th>
                     <th>Название товара</th>
                     <th>Цена</th>
+                    <th>Статус</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -32,6 +33,13 @@
                     <td><?php echo $product['code']; ?></td>
                     <td><?php echo $product['name']; ?></td>
                     <td><?php echo $product['price']; ?></td>
+                    <td>
+                        <?php if ($product['status']==0): ?>
+                            <a><i class="fa fa-eye-slash"></i></a>
+                        <?php else: ?>
+                            <a><i class="fa fa-eye"></i></a>
+                        <?php endif; ?>
+                    </td>
                     <td><a href="/admin/product/update/<?php echo $product['id']; ?>" title="Редактировать"><i class="fa fa-pencil-square-o"></i></a></td>
                     <td><a href="/admin/product/delete/<?php echo $product['id']; ?>" title="Удалить"><i class="fa fa-times"></i></a></td>
                 </tr>
