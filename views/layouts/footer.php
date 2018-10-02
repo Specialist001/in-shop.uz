@@ -2,7 +2,7 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-                <p class="pull-left">Copyright © 2018</p>
+                <p class="pull-left">Copyright © 2018 | <a href="https://github.com/Specialist001/in-shop.uz" target="_blank">Repo on GitHub</p>
                 <p class="pull-right">inShop.uz</p>
             </div>
         </div>

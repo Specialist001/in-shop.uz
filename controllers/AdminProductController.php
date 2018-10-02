@@ -14,6 +14,7 @@ class AdminProductController extends AdminBase
         //echo $total;
         $pagination = new Pagination($total, $page, Product::SHOW_BY_DEFAULT, '');
 
+		$title = 'Управление товарами';
         require_once(ROOT . '/views/admin_product/index.php');
         //print_r($productsList);
         return true;
@@ -56,6 +57,7 @@ class AdminProductController extends AdminBase
 
         }
 
+		$title = 'Создать товар';
         require_once(ROOT . '/views/admin_product/create.php');
         return true;
     }
@@ -70,6 +72,9 @@ class AdminProductController extends AdminBase
 
         // Получаем данные о конкретном заказе
         $product = Product::getProductById($id);
+		
+		//Получаем название продукта
+		$titleProd = $product['name'];
 
         // Обработка формы
         if (isset($_POST['submit'])) {
@@ -103,6 +108,7 @@ class AdminProductController extends AdminBase
             header("Location: /admin/product");
         }
 
+		$title = 'Редактировать товар - ' . $titleProd;
         // Подключаем вид
         require_once(ROOT . '/views/admin_product/update.php');
         return true;
