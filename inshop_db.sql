@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 02 2018 г., 19:11
+-- Время создания: Окт 02 2018 г., 23:33
 -- Версия сервера: 5.5.45
 -- Версия PHP: 5.6.12
 
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`) VALUES
-(1, 'Good', 'good@test.uz', '96e79218965eb72c92a549dd5a330112', 'admin');
+(1, 'Admin', 'Admin@test.uz', '295ce6711606eaea5a2e8f0c4703e7b7', 'admin');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
