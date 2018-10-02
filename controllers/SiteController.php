@@ -12,7 +12,7 @@ class SiteController
 
         $sliderProducts = Product::getRecommendedProducts();
 
-        $title = 'Main Page';
+        $title = 'inShop.uz | Интернет-магазин';
         require_once(ROOT . '/views/site/index.php');
 
         return true;

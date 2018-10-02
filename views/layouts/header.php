@@ -80,6 +80,11 @@
                                             <i class="fa fa-lock"></i>Вход
                                         </a>
                                     </li>
+									<li>
+										<a href="/user/register">
+                                            <i class="fa fa-sign-in"></i>Регистрация
+                                        </a>
+									</li>
                                     <?php else: ?>
                                     <li>
                                         <a href="/cabinet">

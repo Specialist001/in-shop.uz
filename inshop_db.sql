@@ -1,22 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.3
--- https://www.phpmyadmin.net/
+-- version 4.0.10.10
+-- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 30 2018 г., 17:33
--- Версия сервера: 5.6.37-log
--- Версия PHP: 7.0.21
+-- Время создания: Окт 02 2018 г., 19:11
+-- Версия сервера: 5.5.45
+-- Версия PHP: 5.6.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- База данных: `inshop_db`
@@ -28,12 +26,13 @@ SET time_zone = "+00:00";
 -- Структура таблицы `category`
 --
 
-CREATE TABLE `category` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `sort_order` int(11) NOT NULL DEFAULT '0',
-  `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `category`
@@ -56,16 +55,17 @@ INSERT INTO `category` (`id`, `name`, `sort_order`, `status`) VALUES
 -- Структура таблицы `news`
 --
 
-CREATE TABLE `news` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `short_content` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `author_name` varchar(255) NOT NULL,
   `preview` varchar(255) NOT NULL,
-  `type` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `type` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `news`
@@ -81,8 +81,8 @@ INSERT INTO `news` (`id`, `title`, `date`, `short_content`, `content`, `author_n
 -- Структура таблицы `product`
 --
 
-CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
   `code` int(11) NOT NULL,
@@ -93,28 +93,30 @@ CREATE TABLE `product` (
   `description` text NOT NULL,
   `is_new` int(11) NOT NULL DEFAULT '0',
   `is_recommended` int(11) NOT NULL DEFAULT '0',
-  `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Дамп данных таблицы `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `category_id`, `code`, `price`, `availability`, `brand`, `image`, `description`, `is_new`, `is_recommended`, `status`) VALUES
-(1, 'Футболка Серая', 2, 1351, 26885, 0, 'GitHub', '', 'Майка мужской Тор Secret. Хлопчатобумажная мужская футболка с длинным рукавом. Спереди застегивается на пуговицы. Ткань белого цвета в мелкие светло-серые полоски. Очень стильная и модная майка, идеальный вариант для каждодневного выхода.', 0, 1, 1),
+(1, 'Футболка Серая', 2, 1351, 26885, 0, 'GitHub', '', 'Майка мужской Тор Secret. Хлопчатобумажная мужская футболка с длинным рукавом. Спереди застегивается на пуговицы. Ткань белого цвета в мелкие светло-серые полоски. Очень стильная и модная майка, идеальный вариант для каждодневного выхода.', 0, 0, 1),
 (2, 'Платье Черная', 2, 1484, 26000, 0, 'GitHub 2', '', 'Материал:92% хлопок, 8% лайкра Отдел:Женский Сезон:Летний', 1, 1, 1),
 (3, 'Футболка Белая', 2, 3201, 24500, 0, 'GitHub', '', 'Футболки хорошего качества со скидкой! I love Bukhara !!!', 0, 1, 1),
-(4, 'Рубашка Летняя', 2, 1339, 18600, 0, 'China', '', 'Летняя мужская рубашка с коротким рукавом с декоративной отделкой в морском стиле', 1, 1, 1),
-(5, 'Рубашка Летняя 2', 2, 1869, 19000, 0, 'Europe', '', 'Нарядный, практичный вариант женского платья для летних знойных дней. В этом наряде можно чувствовать себя уверенно и комфортно при любых обстоятельствах. Дополнить образ  помогут аксессуары: массивные браслеты, серьги, кольца. А вот обувь подойдет любая: на высоком каблуке, низком ходу, даже спортивная.', 0, 1, 1),
-(6, 'Футболка Серая 2', 2, 1351, 26885, 0, 'GitHub', '', 'Майка мужской Тор Secret. Хлопчатобумажная мужская футболка с длинным рукавом. Спереди застегивается на пуговицы. Ткань белого цвета в мелкие светло-серые полоски. Очень стильная и модная майка, идеальный вариант для каждодневного выхода.', 0, 1, 1),
-(7, 'Платье Черная 2', 2, 1484, 26000, 0, 'GitHub', '', 'Материал:92% хлопок, 8% лайкра Отдел:Женский Сезон:Летний', 1, 0, 1),
-(8, 'Футболка Белая 2', 2, 3201, 24500, 0, 'GitHub', '', 'Футболки хорошего качества со скидкой! I love Bukhara !!!', 0, 0, 1),
+(4, 'Рубашка Летняя', 2, 1339, 18600, 0, 'China', '', 'Летняя мужская рубашка с коротким рукавом с декоративной отделкой в морском стиле', 1, 0, 1),
+(5, 'Рубашка Летняя 2', 2, 1869, 19000, 0, 'Europe', '', 'Нарядный, практичный вариант женского платья для летних знойных дней. В этом наряде можно чувствовать себя уверенно и комфортно при любых обстоятельствах. Дополнить образ  помогут аксессуары: массивные браслеты, серьги, кольца. А вот обувь подойдет любая: на высоком каблуке, низком ходу, даже спортивная.', 0, 0, 1),
+(6, 'Футболка Серая 2', 2, 1351, 26885, 0, 'GitHub', '', 'Майка мужской Тор Secret. Хлопчатобумажная мужская футболка с длинным рукавом. Спереди застегивается на пуговицы. Ткань белого цвета в мелкие светло-серые полоски. Очень стильная и модная майка, идеальный вариант для каждодневного выхода.', 0, 0, 1),
+(7, 'Платье Черная 2', 2, 1484, 26000, 0, 'GitHub', '', 'Материал:92% хлопок, 8% лайкра Отдел:Женский Сезон:Летний', 1, 1, 1),
+(8, 'Футболка Белая 2', 2, 3201, 24500, 0, 'GitHub', '', 'Футболки хорошего качества со скидкой! I love Bukhara !!!', 0, 1, 1),
 (9, 'Рубашка Летняя 3', 2, 1339, 18600, 0, 'China', '', 'Летняя мужская рубашка с коротким рукавом с декоративной отделкой в морском стиле', 1, 0, 1),
 (10, 'Рубашка Летняя 4', 5, 1869, 19000, 0, 'Europe', '', 'Нарядный, практичный вариант женского платья для летних знойных дней. В этом наряде можно чувствовать себя уверенно и комфортно при любых обстоятельствах. Дополнить образ  помогут аксессуары: массивные браслеты, серьги, кольца. А вот обувь подойдет любая: на высоком каблуке, низком ходу, даже спортивная.', 0, 0, 1),
 (11, 'Футболка Серая 2', 3, 1351, 26885, 0, 'GitHub', '', 'Майка мужской Тор Secret. Хлопчатобумажная мужская футболка с длинным рукавом. Спереди застегивается на пуговицы. Ткань белого цвета в мелкие светло-серые полоски. Очень стильная и модная майка, идеальный вариант для каждодневного выхода.', 0, 0, 1),
-(12, 'Футболка Черная Мужская', 6, 1484, 26000, 0, 'GitHub', '', 'Материал:92% хлопок, 8% лайкра Отдел:Женский Сезон:Летний', 1, 0, 1),
-(13, 'Футболка Белая 2', 3, 3201, 24500, 0, 'GitHub', '', 'Футболки хорошего качества со скидкой! I love Bukhara !!!', 0, 0, 1),
-(14, 'Nimbus 2000', 8, 112584, 3582000, 1, '', '', 'sadsadasdasd', 1, 1, 1);
+(12, 'Платье Черная 2', 6, 1484, 26000, 0, 'GitHub', '', 'Материал:92% хлопок, 8% лайкра Отдел:Женский Сезон:Летний', 1, 1, 1),
+(13, 'Футболка Белая 2', 3, 3201, 24500, 0, 'GitHub', '', 'Футболки хорошего качества со скидкой! I love Bukhara !!!', 0, 1, 1),
+(14, 'Рубашка Летняя 5', 1, 1339, 18600, 0, 'China', '', 'Летняя мужская рубашка с коротким рукавом с декоративной отделкой в морском стиле', 1, 0, 1),
+(15, 'Рубашка Летняя 6', 1, 1869, 19000, 0, 'Europe', '', 'Нарядный, практичный вариант женского платья для летних знойных дней. В этом наряде можно чувствовать себя уверенно и комфортно при любых обстоятельствах. Дополнить образ  помогут аксессуары: массивные браслеты, серьги, кольца. А вот обувь подойдет любая: на высоком каблуке, низком ходу, даже спортивная.', 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -122,33 +124,35 @@ INSERT INTO `product` (`id`, `name`, `category_id`, `code`, `price`, `availabili
 -- Структура таблицы `product_order`
 --
 
-CREATE TABLE `product_order` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `product_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(255) NOT NULL,
   `user_phone` varchar(255) NOT NULL,
   `user_comment` text NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `products` text NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Дамп данных таблицы `product_order`
 --
 
 INSERT INTO `product_order` (`id`, `user_name`, `user_phone`, `user_comment`, `user_id`, `date`, `products`, `status`) VALUES
-(1, 'asdasdasd', '998971110022', '', 0, '2018-07-21 11:20:50', '{\"2\":1,\"3\":1,\"1\":2}', 1),
-(2, 'R4z0r', '123456789352', 'hujagsdg asyd gasyud gasydugas', 0, '2018-07-21 11:26:22', '{\"14\":3,\"15\":1,\"10\":2}', 1),
-(3, 'asdadad asd asd', '4564564654654654564564654', 'sdhjkfgsdhjfg sdhfsdfhj gsdf sdjgsdhj dfsfghjdfs', 0, '2018-07-21 11:33:39', '{\"14\":1,\"13\":1,\"15\":1}', 1),
-(4, 'Warez', 'djasdjasjdasjdj', 'asgdhsgdjhsaghsdtg usdytf yusdtfyusd', 0, '2018-07-21 11:41:44', '{\"11\":4,\"13\":1,\"2\":1,\"3\":1,\"5\":2,\"6\":1,\"8\":1}', 1),
-(5, 'User1', '998971110022', 'sdfsdfs sd fsdf ', 1, '2018-07-21 12:42:09', '{\"14\":3,\"13\":1}', 1),
-(6, 'User1', '123456789352', 'sotib olaman', 1, '2018-07-21 12:54:13', '{\"2\":1,\"3\":2,\"5\":1,\"6\":2,\"4\":1}', 1),
-(7, 'User1', '998971110022', 'hujagsdg asyd gasyud gasydugas', 1, '2018-07-21 12:55:36', '{\"1\":3,\"3\":1,\"2\":3,\"5\":2}', 1),
-(8, 'User1', '123456789352', 'hujagsdg asyd gasyud gasydugas', 1, '2018-07-21 12:57:34', '{\"3\":1,\"2\":1,\"1\":1,\"4\":1,\"6\":1}', 1),
-(9, 'User1', '123456789352', 'asgdhsgdjhsaghsdtg usdytf yusdtfyusd', 1, '2018-07-21 12:58:24', '{\"1\":1,\"3\":1,\"6\":1,\"5\":1,\"4\":1}', 1),
-(10, 'User1', '4564564654654654564564654', 'sdhjkfgsdhjfg sdhfsdfhj gsdf sdjgsdhj dfsfghjdfs', 1, '2018-07-21 12:59:34', '{\"2\":2,\"3\":1,\"1\":1}', 1),
-(11, 'User1', '4564564654654654564564654', 'asgdhsgdjhsaghsdtg usdytf yusdtfyusd', 1, '2018-07-21 13:00:15', '{\"2\":2,\"3\":1,\"1\":1}', 1);
+(1, 'asdasdasd', '998971110022', '', 0, '2018-07-21 11:20:50', '{"2":1,"3":1,"1":2}', 1),
+(2, 'R4z0r', '123456789352', 'hujagsdg asyd gasyud gasydugas', 0, '2018-07-21 11:26:22', '{"14":3,"15":1,"10":2}', 1),
+(3, 'asdadad asd asd', '4564564654654654564564654', 'sdhjkfgsdhjfg sdhfsdfhj gsdf sdjgsdhj dfsfghjdfs', 0, '2018-07-21 11:33:39', '{"14":1,"13":1,"15":1}', 1),
+(4, 'Warez', 'djasdjasjdasjdj', 'asgdhsgdjhsaghsdtg usdytf yusdtfyusd', 0, '2018-07-21 11:41:44', '{"11":4,"13":1,"2":1,"3":1,"5":2,"6":1,"8":1}', 1),
+(5, 'User1', '998971110022', 'sdfsdfs sd fsdf ', 1, '2018-07-21 12:42:09', '{"14":3,"13":1}', 1),
+(6, 'User1', '123456789352', 'sotib olaman', 1, '2018-07-21 12:54:13', '{"2":1,"3":2,"5":1,"6":2,"4":1}', 1),
+(7, 'User1', '998971110022', 'hujagsdg asyd gasyud gasydugas', 1, '2018-07-21 12:55:36', '{"1":3,"3":1,"2":3,"5":2}', 1),
+(8, 'User1', '123456789352', 'hujagsdg asyd gasyud gasydugas', 1, '2018-07-21 12:57:34', '{"3":1,"2":1,"1":1,"4":1,"6":1}', 1),
+(9, 'User1', '123456789352', 'asgdhsgdjhsaghsdtg usdytf yusdtfyusd', 1, '2018-07-21 12:58:24', '{"1":1,"3":1,"6":1,"5":1,"4":1}', 1),
+(10, 'User1', '4564564654654654564564654', 'sdhjkfgsdhjfg sdhfsdfhj gsdf sdjgsdhj dfsfghjdfs', 1, '2018-07-21 12:59:34', '{"2":2,"3":1,"1":1}', 1),
+(11, 'User1', '4564564654654654564564654', 'asgdhsgdjhsaghsdtg usdytf yusdtfyusd', 1, '2018-07-21 13:00:15', '{"2":2,"3":1,"1":1}', 1),
+(12, 'kalsjdlkasjd', '612371287631876318', 'hkbcdkvbsgfvjsdhhckbsf', 0, '2018-07-22 12:00:56', '{"14":1,"13":1,"15":1}', 1);
 
 -- --------------------------------------------------------
 
@@ -156,88 +160,21 @@ INSERT INTO `product_order` (`id`, `user_name`, `user_phone`, `user_comment`, `u
 -- Структура таблицы `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `role` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Дамп данных таблицы `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`) VALUES
-(1, 'User1', 'mmm@mm.uz', '96E79218965EB72C92A549DD5A330112', 'admin'),
-(2, 'User 2', 'nnn@nn.uz', 'E3CEB5881A0A1FDAAD01296D7554868D', ''),
-(3, 'User 3', 'user3@inshop.uz', '96e79218965eb72c92a549dd5a330112', ''),
-(4, 'User 4', 'user4@inshop.uz', '3dbe00a167653a1aaee01d93e77e730e', ''),
-(5, 'User 5', 'user5@inshop.uz', 'f638f4354ff089323d1a5f78fd8f63ca', '');
-
---
--- Индексы сохранённых таблиц
---
-
---
--- Индексы таблицы `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `news`
---
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `product`
---
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `product_order`
---
-ALTER TABLE `product_order`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT для сохранённых таблиц
---
-
---
--- AUTO_INCREMENT для таблицы `category`
---
-ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
---
--- AUTO_INCREMENT для таблицы `news`
---
-ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT для таблицы `product`
---
-ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
---
--- AUTO_INCREMENT для таблицы `product_order`
---
-ALTER TABLE `product_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT для таблицы `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
+(1, 'Good', 'good@test.uz', '96e79218965eb72c92a549dd5a330112', 'admin');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

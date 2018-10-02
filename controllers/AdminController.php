@@ -6,6 +6,8 @@ class AdminController extends AdminBase
     {
         self::checkAdmin();
 
+		$title = 'Админ Панель';
+		
         require_once(ROOT . '/views/admin/index.php');
         return true;
     }

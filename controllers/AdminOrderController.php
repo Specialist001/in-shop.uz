@@ -8,6 +8,8 @@ class AdminOrderController extends AdminBase
 
         $ordersList = Order::getOrdersList();
 
+		$title = 'РЈРїСЂР°РІР»РµРЅРёРµ Р·Р°РєР°Р·Р°РјРё';
+		
         require_once(ROOT . '/views/admin_order/index.php');
         return true;
     }
@@ -21,6 +23,8 @@ class AdminOrderController extends AdminBase
         self::checkAdmin();
 
         $order = Order::getOrderById($id);
+		
+		$titleOrd = $order['id'];
 
         if (isset($_POST['submit'])) {
             $userName = $_POST['userName'];
@@ -34,6 +38,8 @@ class AdminOrderController extends AdminBase
             header("Location: /admin/order/view/$id");
         }
 
+		$title = 'Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ Р·Р°РєР°Р· в„– - ' . $titleOrd;
+		
         require_once(ROOT . '/views/admin_order/update.php');
         return true;
     }
@@ -45,21 +51,23 @@ class AdminOrderController extends AdminBase
     {
         self::checkAdmin();
 
-        // Получаем данные о конкретном заказе
+        // РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ Рѕ РєРѕРЅРєСЂРµС‚РЅРѕРј Р·Р°РєР°Р·Рµ
         $order = Order::getOrderById($id);
 
-        // Получаем массив с идентификаторами и количеством товаров
+        // РџРѕР»СѓС‡Р°РµРј РјР°СЃСЃРёРІ СЃ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°РјРё Рё РєРѕР»РёС‡РµСЃС‚РІРѕРј С‚РѕРІР°СЂРѕРІ
         $productsQuantity = json_decode($order['products'], true);
 
-        // Получаем массив с индентификаторами товаров
+        // РџРѕР»СѓС‡Р°РµРј РјР°СЃСЃРёРІ СЃ РёРЅРґРµРЅС‚РёС„РёРєР°С‚РѕСЂР°РјРё С‚РѕРІР°СЂРѕРІ
         $productsIds = array_keys($productsQuantity);
 
-        // Получаем список товаров в заказе
+        // РџРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ РІ Р·Р°РєР°Р·Рµ
         $products = Product::getProductsByIds($productsIds);
 
         $total = 0;
 
-        // Подключаем вид
+		$title = 'Р—Р°РєР°Р· в„– - ' . $order['id'];
+		
+        // РџРѕРґРєР»СЋС‡Р°РµРј РІРёРґ
         require_once(ROOT . '/views/admin_order/view.php');
         return true;
     }
@@ -68,17 +76,17 @@ class AdminOrderController extends AdminBase
     {
         self::checkAdmin();
 
-        // Обработка формы
+        // РћР±СЂР°Р±РѕС‚РєР° С„РѕСЂРјС‹
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Удаляем заказ
+            // Р•СЃР»Рё С„РѕСЂРјР° РѕС‚РїСЂР°РІР»РµРЅР°
+            // РЈРґР°Р»СЏРµРј Р·Р°РєР°Р·
             Order::deleteOrderById($id);
 
-            // Перенаправляем пользователя на страницу управлениями товарами
+            // РџРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РЅР° СЃС‚СЂР°РЅРёС†Сѓ СѓРїСЂР°РІР»РµРЅРёСЏРјРё С‚РѕРІР°СЂР°РјРё
             header("Location: /admin/order");
         }
 
-        // Подключаем вид
+        // РџРѕРґРєР»СЋС‡Р°РµРј РІРёРґ
         require_once(ROOT . '/views/admin_order/delete.php');
         return true;
     }
