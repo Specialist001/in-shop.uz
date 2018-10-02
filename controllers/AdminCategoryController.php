@@ -8,7 +8,6 @@ class AdminCategoryController extends AdminBase
 
         $categoriesList = Category::getCategoriesListAdmin();
 
-		$title = 'Управление категориями';
         require_once(ROOT . '/views/admin_category/index.php');
         return true;
     }
@@ -25,7 +24,7 @@ class AdminCategoryController extends AdminBase
             $errors = false;
 
             if (!isset($name) || empty($name)) {
-                $errors[] = 'Заполните поля';
+                $errors[] = '��������� ����';
             }
 
             if ($errors == false) {
@@ -35,7 +34,6 @@ class AdminCategoryController extends AdminBase
             }
         }
 
-		$title = 'Добавить категорию';
         require_once(ROOT . '/views/admin_category/create.php');
         return true;
     }
@@ -45,8 +43,6 @@ class AdminCategoryController extends AdminBase
         self::checkAdmin();
 
         $category = Category::getCategoryById($id);
-	
-		$titleCat = $category['name'];
 
         if (isset($_POST['submit'])) {
             $name = $_POST['name'];
@@ -58,7 +54,6 @@ class AdminCategoryController extends AdminBase
             header("Location: /admin/category");
         }
 
-		$title = 'Редактировать категорию - ' . $titleCat;
         require_once(ROOT . '/views/admin_category/update.php');
         return true;
     }

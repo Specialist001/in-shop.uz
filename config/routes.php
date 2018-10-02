@@ -43,7 +43,7 @@ return array(
     'admin' => 'admin/index',
 
     'contacts' => 'site/contact',
-    'about' => 'about/index',
+    'about' => 'site/about',
     'blog'  => 'blog/index',
 
     'index.php' => 'site/index',

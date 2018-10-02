@@ -43,7 +43,6 @@ class CabinetController
             }
         }
 
-		$title = 'Редактировать профиль';
         require_once(ROOT . '/views/cabinet/edit.php');
 
         return true;
