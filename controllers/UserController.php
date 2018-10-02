@@ -86,4 +86,13 @@ class UserController
         unset($_SESSION["admin"]);
         header("Location: /");
     }
+	
+	public function actionHistory()
+	{
+		$title = 'История покупок';
+		
+		require_once(ROOT . '/views/user/history.php');
+		
+		return true;
+	}
 }

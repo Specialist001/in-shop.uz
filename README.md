@@ -7,6 +7,6 @@
 <br>
 For admin panel:
 <br>
-<b>E-mail:</b> Admin@test.uz
+<b>E-mail: </b> Admin@test.uz
 <br>
-<b>Password</b>admin1111
+<b>Password: </b> admin1111

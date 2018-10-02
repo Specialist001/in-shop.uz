@@ -41,6 +41,11 @@
                             <div class="social-icons pull-right">
                                 <ul class="nav navbar-nav">
                                     <li><a href="/" target="_blank"><i class="fa fa-sign-out"></i>На сайт</a></li>
+									<li>
+                                        <a href="/user/logout">
+                                            <i class="fa fa-unlock"></i>Выход
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
